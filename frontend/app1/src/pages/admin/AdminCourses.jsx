@@ -14,6 +14,15 @@ export default function AdminCourses() {
     const res = await getAllCoursesAdmin();
     if (res.status === "success") setCourses(res.data);
   };
+    const getExpireDays = (endDate) => {
+      const today = new Date();
+      const end = new Date(endDate);
+
+      const diffTime = end - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      return diffDays > 0 ? diffDays : 0;
+    };
 
   const handleDelete = async (id) => {
     if (window.confirm("Delete this course?")) {
@@ -43,26 +52,30 @@ export default function AdminCourses() {
       <th>Fees</th>
       <th>Start Date</th>
       <th>End Date</th>
+      <th>Expire Days</th>
       <th>Action</th>
     </tr>
   </thead>
 
   <tbody>
-    {courses.map(c => (
-      <tr key={c.id}>
-        <td>{c.id}</td>
-        <td>{c.courseName}</td>
-        <td>{c.description}</td>
-        <td>₹{c.fees}</td>
-        <td>{new Date(c.startDate).toLocaleDateString()}</td>
-        <td>{new Date(c.endDate).toLocaleDateString()}</td>
-        <td>
-          <button className="btn btn-warning btn-sm me-2">✏️</button>
-          <button className="btn btn-danger btn-sm">🗑</button>
-        </td>
-      </tr>
-    ))}
-  </tbody>
+  {courses.map(c => (
+    <tr key={c.id}>
+  <td>{c.id}</td>
+  <td>{c.courseName}</td>
+  <td>{c.description}</td>
+  <td>₹{c.fees}</td>
+  <td>{new Date(c.startDate).toLocaleDateString()}</td>
+  <td>{new Date(c.endDate).toLocaleDateString()}</td>
+  <td>{c.expireDays}</td>
+  <td>
+    <button className="btn btn-warning btn-sm me-2">✏️</button>
+    <button className="btn btn-danger btn-sm">🗑️</button>
+  </td>
+</tr>
+
+  ))}
+</tbody>
+
 </table>
 
     </>
