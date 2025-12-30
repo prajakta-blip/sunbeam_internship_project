@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import MyCourses from "./pages/MyCourses";
 import VideoPlayer from "./pages/VideoPlayer";
 import RegistrationForm from "./pages/RegistrationForm";
+import AdminAllVideos from "./pages/admin/AdminAllVideos";
 
 // ADMIN
 import AdminHome from "./pages/admin/AdminHome";
@@ -89,6 +90,16 @@ function App() {
           </AdminRoute>
         }
       />
+      <Route
+          path="/admin/videos"
+          element={
+            <AdminRoute>
+              <AdminLayout>
+                <AdminAllVideos />
+              </AdminLayout>
+            </AdminRoute>
+          }
+        />
 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>

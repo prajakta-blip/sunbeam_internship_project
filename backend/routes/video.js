@@ -13,11 +13,23 @@ const router = express.Router();
 router.get("/all-videos", (req, res) => {
   const { courseId } = req.query;
 
-  let sql = "SELECT * FROM videos";
-  let params = [];
+  let sql = `
+    SELECT
+      v.id,
+      v.courseId,
+      c.courseName,
+      v.title,
+      v.youtubeURL,
+      v.description,
+      v.added_at
+    FROM videos v
+    JOIN courses c ON v.courseId = c.id
+  `;
+
+  const params = [];
 
   if (courseId) {
-    sql += " WHERE courseId = ?";
+    sql += " WHERE v.courseId = ?";
     params.push(courseId);
   }
 

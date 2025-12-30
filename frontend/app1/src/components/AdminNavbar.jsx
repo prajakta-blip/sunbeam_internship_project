@@ -11,7 +11,11 @@ export default function AdminNavbar() {
 
         {/* COURSES */}
         <li className="nav-item dropdown">
-          <span className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+          <span
+            className="nav-link dropdown-toggle"
+            role="button"
+            data-bs-toggle="dropdown"
+          >
             Courses
           </span>
           <ul className="dropdown-menu">
@@ -24,13 +28,29 @@ export default function AdminNavbar() {
 
         {/* VIDEOS */}
         <li className="nav-item dropdown">
-          <span className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+          <span
+            className="nav-link dropdown-toggle"
+            role="button"
+            data-bs-toggle="dropdown"
+          >
             Videos
           </span>
           <ul className="dropdown-menu">
-            <li><Link className="dropdown-item" to="/admin/videos">Get All Videos</Link></li>
-            <li><Link className="dropdown-item" to="/admin/video/add">Add Video</Link></li>
-            <li><Link className="dropdown-item" to="/admin/video/edit">Edit Video</Link></li>
+            <li>
+              <Link className="dropdown-item" to="/admin/videos">
+                Get All Videos
+              </Link>
+            </li>
+            <li>
+              <Link className="dropdown-item" to="/admin/video/add">
+                Add Video
+              </Link>
+            </li>
+            <li>
+              <Link className="dropdown-item" to="/admin/video/edit">
+                Edit Video
+              </Link>
+            </li>
           </ul>
         </li>
 
