@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllCoursesAdmin, deleteCourse } from "../../services/courseService";
+import { toast } from "react-toastify";
 
 export default function AdminCourses() {
   const [courses, setCourses] = useState([]);
@@ -14,20 +15,16 @@ export default function AdminCourses() {
     const res = await getAllCoursesAdmin();
     if (res.status === "success") setCourses(res.data);
   };
-    const getExpireDays = (endDate) => {
-      const today = new Date();
-      const end = new Date(endDate);
-
-      const diffTime = end - today;
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-      return diffDays > 0 ? diffDays : 0;
-    };
 
   const handleDelete = async (id) => {
     if (window.confirm("Delete this course?")) {
-      await deleteCourse(id);
-      loadCourses();
+      const res = await deleteCourse(id);
+      if (res.status === "success") {
+        toast.success("Course deleted successfully");
+        loadCourses();
+      } else {
+        toast.error("Failed to delete course");
+      }
     }
   };
 
@@ -44,40 +41,52 @@ export default function AdminCourses() {
       </div>
 
       <table className="table table-bordered table-striped">
-  <thead className="table-dark">
-    <tr>
-      <th>ID</th>
-      <th>Course Name</th>
-      <th>Description</th>
-      <th>Fees</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Expire Days</th>
-      <th>Action</th>
-    </tr>
-  </thead>
+        <thead className="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Course Name</th>
+            <th>Description</th>
+            <th>Fees</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Expire Days</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-  <tbody>
-  {courses.map(c => (
-    <tr key={c.id}>
-  <td>{c.id}</td>
-  <td>{c.courseName}</td>
-  <td>{c.description}</td>
-  <td>₹{c.fees}</td>
-  <td>{new Date(c.startDate).toLocaleDateString()}</td>
-  <td>{new Date(c.endDate).toLocaleDateString()}</td>
-  <td>{c.expireDays}</td>
-  <td>
-    <button className="btn btn-warning btn-sm me-2">✏️</button>
-    <button className="btn btn-danger btn-sm">🗑️</button>
-  </td>
-</tr>
+        <tbody>
+          {courses.map((c) => (
+            <tr key={c.id}>
+              <td>{c.id}</td>
+              <td>{c.courseName}</td>
+              <td>{c.description}</td>
+              <td>₹{c.fees}</td>
+              <td>{new Date(c.startDate).toLocaleDateString()}</td>
+              <td>{new Date(c.endDate).toLocaleDateString()}</td>
+              <td>{c.expireDays}</td>
 
-  ))}
-</tbody>
+              <td>
+                <button
+  className="btn btn-warning btn-sm me-2"
+  onClick={() => navigate(`/admin/course/update/${c.id}`)}
+>
+  ✏️
+</button>
 
-</table>
 
+
+                {/* DELETE */}
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handleDelete(c.id)}
+                >
+                  🗑️
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 }

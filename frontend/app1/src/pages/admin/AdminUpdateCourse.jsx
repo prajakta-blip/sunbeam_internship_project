@@ -1,61 +1,112 @@
 import { useEffect, useState } from "react";
-import { getAllCoursesAdmin, updateCourse } from "../../services/courseService";
+import { useParams, useNavigate } from "react-router-dom";
+import { getCourseById, updateCourse } from "../../services/courseService";
+import { toast } from "react-toastify";
 
 export default function AdminUpdateCourse() {
-  const [courses, setCourses] = useState([]);
-  const [selectedId, setSelectedId] = useState("");
-  const [courseName, setCourseName] = useState("");
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    courseName: "",
+    description: "",
+    fees: "",
+    startDate: "",
+    endDate: "",
+    videoExpireDays: ""
+  });
 
   useEffect(() => {
-    loadCourses();
+    loadCourse();
   }, []);
 
-  const loadCourses = async () => {
-    const res = await getAllCoursesAdmin();
+  const loadCourse = async () => {
+    const res = await getCourseById(id);
     if (res.status === "success") {
-      setCourses(res.data);
+      setForm(res.data);
     }
   };
 
-  const handleUpdate = async () => {
-    if (!selectedId || !courseName.trim()) {
-      alert("Select course and enter new name");
-      return;
-    }
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-    await updateCourse(selectedId, { courseName });
-    alert("Course updated successfully");
-    setCourseName("");
-    loadCourses();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await updateCourse(id, form);
+
+    if (res.status === "success") {
+      toast.success("Course updated successfully");
+      navigate("/admin/courses");
+    } else {
+      toast.error("Failed to update course");
+    }
   };
 
   return (
-    <div className="container">
-      <h3 className="mb-3">Update Course</h3>
+    <div className="container mt-5" style={{ maxWidth: 450 }}>
+      <div className="card shadow p-4">
+        <h4 className="text-center mb-3">Update Course</h4>
 
-      <select
-        className="form-select mb-3"
-        value={selectedId}
-        onChange={(e) => setSelectedId(e.target.value)}
-      >
-        <option value="">Select Course</option>
-        {courses.map(c => (
-          <option key={c.id} value={c.id}>
-            {c.courseName}
-          </option>
-        ))}
-      </select>
+        <form onSubmit={handleSubmit}>
+          <input
+            className="form-control mb-2"
+            name="courseName"
+            value={form.courseName}
+            onChange={handleChange}
+            required
+          />
 
-      <input
-        className="form-control mb-3"
-        placeholder="New Course Name"
-        value={courseName}
-        onChange={(e) => setCourseName(e.target.value)}
-      />
+          <input
+            className="form-control mb-2"
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            required
+          />
 
-      <button className="btn btn-warning" onClick={handleUpdate}>
-        Update Course
-      </button>
+          <input
+            className="form-control mb-2"
+            name="fees"
+            type="number"
+            value={form.fees}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            className="form-control mb-2"
+            name="startDate"
+            type="date"
+            value={form.startDate?.slice(0, 10)}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            className="form-control mb-2"
+            name="endDate"
+            type="date"
+            value={form.endDate?.slice(0, 10)}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            className="form-control mb-3"
+            name="videoExpireDays"
+            type="number"
+            value={form.videoExpireDays}
+            onChange={handleChange}
+            required
+          />
+
+          <button className="btn btn-info w-100 text-white">
+            Update Course
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

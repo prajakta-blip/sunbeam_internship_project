@@ -14,12 +14,11 @@ import VideoPlayer from "./pages/VideoPlayer";
 import RegistrationForm from "./pages/RegistrationForm";
 import AdminAllVideos from "./pages/admin/AdminAllVideos";
 import AdminAddCourse from "./pages/admin/AdminAddCourse";
-
+import AdminUpdateCourse from "./pages/admin/AdminUpdateCourse";
 // ADMIN
 import AdminHome from "./pages/admin/AdminHome";
 import AdminCourses from "./pages/admin/AdminCourses";
 import AdminStudents from "./pages/admin/AdminStudents";
-import AdminUpdateCourse from "./pages/admin/AdminUpdateCourse";
 import AdminDeleteCourse from "./pages/admin/AdminDeleteCourse";
 
 function App() {
@@ -111,7 +110,7 @@ function App() {
             </AdminRoute>
           }
         />
-
+        <Route path="/admin/course/update/:id" element={<AdminUpdateCourse />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

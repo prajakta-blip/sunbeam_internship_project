@@ -28,9 +28,14 @@ export const addCourse = async (data) => {
 };
 
 export const updateCourse = async (id, data) => {
-  const res = await axios.put(`${BASE_URL}/update/${id}`, data, authHeader());
+  const res = await axios.put(
+    `${BASE_URL}/update/${id}`,
+    data,
+    authHeader()
+  );
   return res.data;
 };
+
 
 export const deleteCourse = async (id) => {
   const res = await axios.delete(`${BASE_URL}/delete/${id}`, authHeader());
@@ -43,7 +48,6 @@ export const getActiveCoursesForFilter = async () => {
   return res.data;
 };
 
-/* ================= COURSE DETAILS ================= */
 export const getCourseById = async (id) => {
   const res = await axios.get(`${BASE_URL}/${id}`);
   return res.data;
