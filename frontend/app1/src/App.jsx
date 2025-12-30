@@ -13,6 +13,7 @@ import MyCourses from "./pages/MyCourses";
 import VideoPlayer from "./pages/VideoPlayer";
 import RegistrationForm from "./pages/RegistrationForm";
 import AdminAllVideos from "./pages/admin/AdminAllVideos";
+import AdminAddCourse from "./pages/admin/AdminAddCourse";
 
 // ADMIN
 import AdminHome from "./pages/admin/AdminHome";
@@ -46,6 +47,16 @@ function App() {
           </AdminRoute>
         }
       />
+        <Route
+          path="/admin/course/add"
+          element={
+            <AdminRoute>
+              <Layout>
+                <AdminAddCourse />
+              </Layout>
+            </AdminRoute>
+          }
+        />
 
       <Route
         path="/admin/courses"

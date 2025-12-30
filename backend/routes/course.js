@@ -57,7 +57,7 @@ router.post(
       fees,
       startDate,
       endDate,
-      videoExpireDays,
+      expireDays
     } = req.body;
 
     if (
@@ -66,7 +66,7 @@ router.post(
       !fees ||
       !startDate ||
       !endDate ||
-      !videoExpireDays
+      !expireDays
     ) {
       return res.send(createResult("All fields are required"));
     }
@@ -74,7 +74,7 @@ router.post(
     pool.query(
       `
       INSERT INTO courses
-      (courseName, description, fees, startDate, endDate, videoExpireDays, isActive)
+      (courseName, description, fees, startDate, endDate, expireDays, isActive)
       VALUES (?, ?, ?, ?, ?, ?, 1)
       `,
       [
@@ -83,12 +83,19 @@ router.post(
         fees,
         startDate,
         endDate,
-        videoExpireDays,
+        expireDays
       ],
-      err => res.send(createResult(err, "Course added successfully"))
+      (err) => {
+        if (err) {
+          console.error(err);
+          return res.send(createResult(err));
+        }
+        res.send(createResult(null, "Course added successfully"));
+      }
     );
   }
 );
+
 
 /* =====================================================
    ADMIN API
@@ -105,7 +112,7 @@ router.put(
       fees,
       startDate,
       endDate,
-      videoExpireDays,
+      expireDays
     } = req.body;
 
     pool.query(
@@ -116,7 +123,7 @@ router.put(
         fees=?,
         startDate=?,
         endDate=?,
-        videoExpireDays=?
+        expireDays=?
       WHERE id=?
       `,
       [
@@ -125,13 +132,14 @@ router.put(
         fees,
         startDate,
         endDate,
-        videoExpireDays,
-        req.params.courseId,
+        expireDays,
+        req.params.courseId
       ],
       err => res.send(createResult(err, "Course updated successfully"))
     );
   }
 );
+
 /* =====================================================
    PUBLIC API
    GET /course/:id
