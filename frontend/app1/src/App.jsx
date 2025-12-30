@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
-import AdminLayout from "./components/AdminLayout";
 import AdminRoute from "./components/AdminRoute";
+import AdminLayout from "./components/AdminLayout";
 
 // STUDENT
 import Home from "./pages/Home";
@@ -17,6 +17,8 @@ import RegistrationForm from "./pages/RegistrationForm";
 import AdminHome from "./pages/admin/AdminHome";
 import AdminCourses from "./pages/admin/AdminCourses";
 import AdminStudents from "./pages/admin/AdminStudents";
+import AdminUpdateCourse from "./pages/admin/AdminUpdateCourse";
+import AdminDeleteCourse from "./pages/admin/AdminDeleteCourse";
 
 function App() {
   return (
@@ -66,7 +68,28 @@ function App() {
         }
       />
 
-      {/* FALLBACK */}
+      <Route
+        path="/admin/course/update"
+        element={
+          <AdminRoute>
+            <AdminLayout>
+              <AdminUpdateCourse />
+            </AdminLayout>
+          </AdminRoute>
+        }
+      />
+
+      <Route
+        path="/admin/course/delete"
+        element={
+          <AdminRoute>
+            <AdminLayout>
+              <AdminDeleteCourse />
+            </AdminLayout>
+          </AdminRoute>
+        }
+      />
+
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

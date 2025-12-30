@@ -34,40 +34,37 @@ export default function AdminCourses() {
         </button>
       </div>
 
-      <table className="table table-bordered">
-        <thead className="table-dark">
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Fees</th>
-            <th>Action</th>
-          </tr>
-        </thead>
+      <table className="table table-bordered table-striped">
+  <thead className="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Course Name</th>
+      <th>Description</th>
+      <th>Fees</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
 
-        <tbody>
-          {courses.map(c => (
-            <tr key={c.id}>
-              <td>{c.id}</td>
-              <td>{c.courseName}</td>
-              <td>₹{c.fees}</td>
-              <td>
-                <button
-                  className="btn btn-warning btn-sm me-2"
-                  onClick={() => navigate(`/admin/course/edit/${c.id}`)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => handleDelete(c.id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  <tbody>
+    {courses.map(c => (
+      <tr key={c.id}>
+        <td>{c.id}</td>
+        <td>{c.courseName}</td>
+        <td>{c.description}</td>
+        <td>₹{c.fees}</td>
+        <td>{new Date(c.startDate).toLocaleDateString()}</td>
+        <td>{new Date(c.endDate).toLocaleDateString()}</td>
+        <td>
+          <button className="btn btn-warning btn-sm me-2">✏️</button>
+          <button className="btn btn-danger btn-sm">🗑</button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
     </>
   );
 }

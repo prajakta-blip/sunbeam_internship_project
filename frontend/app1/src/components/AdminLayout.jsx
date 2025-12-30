@@ -4,13 +4,13 @@ import AdminNavbar from "./AdminNavbar";
 export default function AdminLayout({ children }) {
   return (
     <>
-      {/* TOP CYAN STUDENT NAVBAR */}
+      {/* Student top navbar */}
       <Navbar />
 
-      {/* BLUE ADMIN NAVBAR */}
+      {/* Admin blue navbar */}
       <AdminNavbar />
 
-      {/* ADMIN PAGE CONTENT */}
+      {/* Admin content */}
       <div className="container mt-4">
         {children}
       </div>
