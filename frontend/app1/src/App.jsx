@@ -20,7 +20,8 @@ import AdminHome from "./pages/admin/AdminHome";
 import AdminCourses from "./pages/admin/AdminCourses";
 import AdminStudents from "./pages/admin/AdminStudents";
 import AdminDeleteCourse from "./pages/admin/AdminDeleteCourse";
-
+import AdminEditVideo from "./pages/admin/AdminEditVideo";
+import AdminAddVideo from "./pages/admin/AdminAddVideo";
 function App() {
   return (
     <Routes>
@@ -110,6 +111,17 @@ function App() {
             </AdminRoute>
           }
         />
+        <Route path="/admin/video/add" element={<AdminAddVideo />} />
+        <Route
+            path="/admin/video/edit/:id"
+            element={
+              <AdminRoute>
+                <Layout>
+                  <AdminEditVideo />
+                </Layout>
+              </AdminRoute>
+            }
+          />
         <Route path="/admin/course/update/:id" element={<AdminUpdateCourse />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>

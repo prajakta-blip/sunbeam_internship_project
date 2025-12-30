@@ -136,5 +136,22 @@ router.get(
     );
   }
 );
+/* ================================
+   GET SINGLE VIDEO
+   GET /video/:id
+================================ */
+router.get("/:id", checkAuthorization, checkAdmin, (req, res) => {
+  pool.query(
+    "SELECT * FROM videos WHERE id = ?",
+    [req.params.id],
+    (err, rows) => {
+      if (err) return res.send(createResult(err));
+      if (rows.length === 0)
+        return res.send(createResult("Video not found"));
+
+      res.send(createResult(null, rows[0]));
+    }
+  );
+});
 
 module.exports = router;
