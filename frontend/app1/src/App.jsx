@@ -22,6 +22,10 @@ import AdminStudents from "./pages/admin/AdminStudents";
 import AdminDeleteCourse from "./pages/admin/AdminDeleteCourse";
 import AdminEditVideo from "./pages/admin/AdminEditVideo";
 import AdminAddVideo from "./pages/admin/AdminAddVideo";
+import UpdateProfile from "./pages/profile/UpdateProfile";
+
+import ChangePassword from "./pages/profile/ChangePassword";
+
 function App() {
   return (
     <Routes>
@@ -35,18 +39,19 @@ function App() {
       <Route path="/register/:courseId" element={<Layout><RegistrationForm /></Layout>} />
       <Route path="/my-courses" element={<Layout><MyCourses /></Layout>} />
       <Route path="/video/:id" element={<Layout><VideoPlayer /></Layout>} />
+      <Route path="/profile/update" element={<UpdateProfile />} />
+      <Route path="/profile/change-password" element={<ChangePassword />} />
 
       {/* ================= ADMIN ================= */}
       <Route
-        path="/admin"
-        element={
-          <AdminRoute>
-            <AdminLayout>
-              <AdminHome />
-            </AdminLayout>
-          </AdminRoute>
-        }
-      />
+  path="/admin"
+  element={
+    <AdminRoute>
+      <Navigate to="/home" replace />
+    </AdminRoute>
+  }
+/>
+
         <Route
           path="/admin/course/add"
           element={

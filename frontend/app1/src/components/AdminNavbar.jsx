@@ -1,85 +1,97 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminNavbar() {
-  return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <ul className="navbar-nav mx-auto">
+  const navigate = useNavigate();
 
-        {/* DASHBOARD */}
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
+
+  const name = user?.name || user?.email || "Admin";
+
+  const logout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
+  return (
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-3">
+      <ul className="navbar-nav me-auto">
+
         <li className="nav-item">
-          <Link className="nav-link" to="/admin">
-            Dashboard
-          </Link>
+          <Link className="nav-link" to="/admin">Dashboard</Link>
         </li>
 
         {/* COURSES */}
         <li className="nav-item dropdown">
-  <Link
-    className="nav-link dropdown-toggle"
-    to="#"
-    role="button"
-    data-bs-toggle="dropdown"
-  >
-    Courses
-  </Link>
-
-  <ul className="dropdown-menu">
-    <li>
-      <Link className="dropdown-item" to="/admin/courses">
-        Get All Courses
-      </Link>
-    </li>
-    <li>
-      <Link className="dropdown-item" to="/admin/course/add">
-        Add Course
-      </Link>
-    </li>
-    <li>
-      <Link className="dropdown-item" to="/admin/course/update">
-        Update Course
-      </Link>
-    </li>
-    <li>
-      <Link className="dropdown-item" to="/admin/course/delete">
-        Delete Course
-      </Link>
-    </li>
-  </ul>
-</li>
-
-
-        {/* VIDEOS */}
-        <li className="nav-item dropdown">
-          <Link
-            className="nav-link dropdown-toggle"
-            to="#"
-            role="button"
+          <button
+            className="nav-link dropdown-toggle btn btn-link text-white"
             data-bs-toggle="dropdown"
+            type="button"
           >
-            Videos
-          </Link>
+            Courses
+          </button>
 
           <ul className="dropdown-menu">
-            <li>
-              <Link className="dropdown-item" to="/admin/videos">
-                Get All Videos
-              </Link>
-            </li>
-            <li>
-              <Link className="dropdown-item" to="/admin/video/add">
-                Add Video
-              </Link>
-            </li>
+            <li><Link className="dropdown-item" to="/admin/courses">Get All Courses</Link></li>
+            <li><Link className="dropdown-item" to="/admin/course/add">Add Course</Link></li>
+            <li><Link className="dropdown-item" to="/admin/course/update">Update Course</Link></li>
+            <li><Link className="dropdown-item text-danger" to="/admin/course/delete">Delete Course</Link></li>
           </ul>
         </li>
 
-        {/* STUDENTS */}
-        <li className="nav-item">
-          <Link className="nav-link" to="/admin/students">
-            Students
-          </Link>
+        {/* VIDEOS */}
+        <li className="nav-item dropdown">
+          <button
+            className="nav-link dropdown-toggle btn btn-link text-white"
+            data-bs-toggle="dropdown"
+            type="button"
+          >
+            Videos
+          </button>
+
+          <ul className="dropdown-menu">
+            <li><Link className="dropdown-item" to="/admin/videos">Get All Videos</Link></li>
+            <li><Link className="dropdown-item" to="/admin/video/add">Add Video</Link></li>
+            {/* <li><Link className="dropdown-item" to="/admin/video/edit">Edit Video</Link></li> */}
+          </ul>
         </li>
 
+        <li className="nav-item">
+          <Link className="nav-link" to="/admin/students">Students</Link>
+        </li>
+      </ul>
+
+      {/* PROFILE DROPDOWN (RIGHT SIDE) */}
+      <ul className="navbar-nav">
+        <li className="nav-item dropdown">
+          <button
+            className="btn btn-outline-light dropdown-toggle"
+            data-bs-toggle="dropdown"
+            type="button"
+          >
+            {name}
+          </button>
+
+          <ul className="dropdown-menu dropdown-menu-end">
+            <li>
+              <button className="dropdown-item" onClick={() => navigate("/profile/update")}>
+                Update Profile
+              </button>
+            </li>
+            <li>
+              <button className="dropdown-item" onClick={() => navigate("/profile/change-password")}>
+                Change Password
+              </button>
+            </li>
+            <li><hr className="dropdown-divider" /></li>
+            <li>
+              <button className="dropdown-item text-danger" onClick={logout}>
+                Logout
+              </button>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
   );
