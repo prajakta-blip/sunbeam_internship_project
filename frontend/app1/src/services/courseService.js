@@ -14,7 +14,6 @@ export const getActiveCourses = async () => {
   return res.data;
 };
 
-/* ================= ADMIN ================= */
 export const getAllCoursesAdmin = async () => {
   const res = await axios.get(`${BASE_URL}/all-courses`, authHeader());
   return res.data;
