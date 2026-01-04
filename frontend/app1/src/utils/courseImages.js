@@ -2,7 +2,7 @@ import javaImg from "../assets/Java.jpeg";
 import nodeImg from "../assets/Node.png";
 import mernImg from "../assets/Mern.jpg";
 import reactImg from "../assets/React.jpg";
-import defaultImg from "../assets/default-course.png"; // ✅ add one fallback image
+import defaultImg from "../assets/default-course.png"; 
 
 const courseImages = {
   "Java advance": javaImg,
