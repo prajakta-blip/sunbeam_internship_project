@@ -42,7 +42,6 @@ export const updateVideo = async (id, data) => {
   return res.data;
 };
 
-/* ✅ ADD THIS */
 export const deleteVideo = async (id) => {
   const res = await axios.delete(
     `${config.BASE_URL}/video/delete/${id}`,
