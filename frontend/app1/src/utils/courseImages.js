@@ -4,7 +4,6 @@ import mernImg from "../assets/Mern.jpg";
 import reactImg from "../assets/React.jpg";
 import defaultImg from "../assets/default-course.png"; // ✅ add one fallback image
 
-// ✅ EXACT MATCH with DB courseName
 const courseImages = {
   "Java advance": javaImg,
   "Java Advanced": javaImg,
