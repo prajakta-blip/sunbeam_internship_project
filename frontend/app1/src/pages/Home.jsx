@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getActiveCourses } from "../services/courseService";
-import courseImages from "../utils/courseImages";
+import { getCourseImage } from "../utils/courseImages";
 
 function Home() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     getActiveCourses().then((res) => {
-      if (res.status === "success") setCourses(res.data);
+      if (res.status === "success") {
+        setCourses(res.data);
+      }
     });
   }, []);
 
@@ -20,19 +22,23 @@ function Home() {
         {courses.map((course) => (
           <div key={course.id} className="col-md-3 mb-4">
             <div className="card shadow-sm h-100 text-center">
+
+              {/* ✅ FIXED IMAGE */}
               <img
-              src={courseImages[course.courseName]}
-              className="card-img-top"
-              style={{ height: "160px", objectFit: "contain" }}
-              alt={course.courseName}
-            />
+                src={getCourseImage(course.courseName)}
+                className="card-img-top"
+                style={{ height: "160px", objectFit: "cover" }}
+                alt={course.courseName}
+              />
 
               <div className="card-body">
                 <h6>{course.courseName}</h6>
+
                 <p style={{ fontSize: "13px" }}>
                   Starts on:{" "}
                   {new Date(course.startDate).toLocaleDateString("en-IN")}
                 </p>
+
                 <Link
                   to={`/course/${course.id}`}
                   className="btn btn-primary btn-sm"

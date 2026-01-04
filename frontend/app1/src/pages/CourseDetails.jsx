@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCourseById } from "../services/courseService";
-import courseImages from "../utils/courseImages";
+import { getCourseImage } from "../utils/courseImages";
 import { toast } from "react-toastify";
 
 function CourseDetails() {
@@ -18,15 +18,11 @@ function CourseDetails() {
   }, [id]);
 
   const loadCourse = async () => {
-    try {
-      const res = await getCourseById(id);
-      if (res.status === "success") {
-        setCourse(res.data);
-      } else {
-        toast.error("Course not found");
-      }
-    } catch {
-      toast.error("Failed to load course");
+    const res = await getCourseById(id);
+    if (res.status === "success") {
+      setCourse(res.data);
+    } else {
+      toast.error("Course not found");
     }
   };
 
@@ -45,12 +41,15 @@ function CourseDetails() {
     <div className="container mt-5">
       <div className="row align-items-center">
         <div className="col-md-6 text-center">
+
+          {/* ✅ FIXED IMAGE */}
           <img
-            src={courseImages[course.courseName]}
+            src={getCourseImage(course.courseName)}
             className="img-fluid shadow"
             style={{ maxHeight: 360, objectFit: "contain" }}
             alt={course.courseName}
           />
+
         </div>
 
         <div className="col-md-6">
@@ -61,18 +60,17 @@ function CourseDetails() {
           <p><b>End Date:</b> {new Date(course.endDate).toLocaleDateString("en-IN")}</p>
           <p><b>Fees:</b> ₹{course.fees}</p>
 
-         {user?.role === "ADMIN" && (
-  <button className="btn btn-secondary" disabled>
-    Admin cannot register
-  </button>
-)}
+          {user?.role === "ADMIN" && (
+            <button className="btn btn-secondary" disabled>
+              Admin cannot register
+            </button>
+          )}
 
-{user?.role === "STUDENT" && (
-  <button className="btn btn-success" onClick={goToRegistrationForm}>
-    Register to Course
-  </button>
-)}
-
+          {user?.role === "STUDENT" && (
+            <button className="btn btn-success" onClick={goToRegistrationForm}>
+              Register to Course
+            </button>
+          )}
 
           {!user && (
             <button
