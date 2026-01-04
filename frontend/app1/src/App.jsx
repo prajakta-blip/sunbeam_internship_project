@@ -29,7 +29,6 @@ function App() {
   return (
     <Routes>
 
-      {/* ================= STUDENT ================= */}
       <Route path="/" element={<Layout><Home /></Layout>} />
       <Route path="/about" element={<Layout><About /></Layout>} />
       <Route path="/login" element={<Login />} />
@@ -41,7 +40,6 @@ function App() {
       <Route path="/profile/update" element={<UpdateProfile />} />
       <Route path="/profile/change-password" element={<ChangePassword />} />
 
-      {/* ================= ADMIN ================= */}
       <Route
   path="/admin"
   element={
