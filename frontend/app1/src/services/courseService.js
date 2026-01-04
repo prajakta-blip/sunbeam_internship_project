@@ -3,7 +3,6 @@ import config from "./config";
 
 const BASE_URL = "http://localhost:4000/course";
 
-/* 🔐 AUTH HEADER */
 const authHeader = () => ({
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
