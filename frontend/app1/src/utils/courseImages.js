@@ -19,7 +19,6 @@ const courseImages = {
   React: reactImg,
 };
 
-// ✅ SAFE IMAGE GETTER
 export const getCourseImage = (courseName) => {
   return courseImages[courseName] || defaultImg;
 };
