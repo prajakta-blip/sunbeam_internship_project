@@ -39,7 +39,6 @@ export const deleteCourse = async (id) => {
   return res.data;
 };
 
-/* ================= FILTER DROPDOWN (ADMIN STUDENTS) ================= */
 export const getActiveCoursesForFilter = async () => {
   const res = await axios.get(`${BASE_URL}/all-active-courses`);
   return res.data;
