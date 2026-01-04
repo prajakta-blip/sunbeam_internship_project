@@ -9,7 +9,6 @@ const authHeader = () => ({
   },
 });
 
-/* ================= STUDENT ================= */
 export const getActiveCourses = async () => {
   const res = await axios.get(`${BASE_URL}/all-active-courses`);
   return res.data;
