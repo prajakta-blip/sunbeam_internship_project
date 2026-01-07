@@ -3,20 +3,17 @@ import config from "./config";
 
 const BASE_URL = "http://localhost:4000/course";
 
-/* 🔐 AUTH HEADER */
 const authHeader = () => ({
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 });
 
-/* ================= STUDENT ================= */
 export const getActiveCourses = async () => {
   const res = await axios.get(`${BASE_URL}/all-active-courses`);
   return res.data;
 };
 
-/* ================= ADMIN ================= */
 export const getAllCoursesAdmin = async () => {
   const res = await axios.get(`${BASE_URL}/all-courses`, authHeader());
   return res.data;
@@ -42,7 +39,6 @@ export const deleteCourse = async (id) => {
   return res.data;
 };
 
-/* ================= FILTER DROPDOWN (ADMIN STUDENTS) ================= */
 export const getActiveCoursesForFilter = async () => {
   const res = await axios.get(`${BASE_URL}/all-active-courses`);
   return res.data;

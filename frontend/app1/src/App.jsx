@@ -3,7 +3,6 @@ import Layout from "./components/Layout";
 import AdminRoute from "./components/AdminRoute";
 import AdminLayout from "./components/AdminLayout";
 
-// STUDENT
 import Home from "./pages/Home";
 import About from "./pages/About";
 import CourseDetails from "./pages/CourseDetails";
@@ -15,7 +14,7 @@ import RegistrationForm from "./pages/RegistrationForm";
 import AdminAllVideos from "./pages/admin/AdminAllVideos";
 import AdminAddCourse from "./pages/admin/AdminAddCourse";
 import AdminUpdateCourse from "./pages/admin/AdminUpdateCourse";
-// ADMIN
+
 import AdminHome from "./pages/admin/AdminHome";
 import AdminCourses from "./pages/admin/AdminCourses";
 import AdminStudents from "./pages/admin/AdminStudents";
@@ -30,7 +29,6 @@ function App() {
   return (
     <Routes>
 
-      {/* ================= STUDENT ================= */}
       <Route path="/" element={<Layout><Home /></Layout>} />
       <Route path="/about" element={<Layout><About /></Layout>} />
       <Route path="/login" element={<Login />} />
@@ -42,7 +40,6 @@ function App() {
       <Route path="/profile/update" element={<UpdateProfile />} />
       <Route path="/profile/change-password" element={<ChangePassword />} />
 
-      {/* ================= ADMIN ================= */}
       <Route
   path="/admin"
   element={
