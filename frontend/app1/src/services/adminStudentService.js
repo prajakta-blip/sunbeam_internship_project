@@ -13,7 +13,7 @@ export const getAllStudents = async () => {
     authHeader()
   );
   return res.data;
-};
+}
 
 export const getStudentsByCourse = async (courseId) => {
   const res = await axios.get(
