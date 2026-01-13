@@ -13,7 +13,7 @@ export default function AdminNavbar() {
     localStorage.clear();
     navigate("/login");
   };
-
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-3">
       <ul className="navbar-nav me-auto">
